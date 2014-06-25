@@ -15,7 +15,7 @@ x = -Integer(100)
 y = Integer(100)
 timerepetitions = Integer(5)
 
-names = {'m015.maths.cf.ac.uk': 'Juliet'
+names = {'m015.maths.cf.ac.uk': 'Juliet',
          'james-desktop': 'Msc Lab'}
 
 host = names[socket.gethostname()]
