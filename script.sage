@@ -6,7 +6,7 @@ import time
 import socket
 
 N = 1000
-maxmatrixsize = 5
+maxmatrixsize = 10
 num_bound = 100
 den_bound = 10
 x = -100
@@ -17,22 +17,17 @@ host = socket.gethostname()
 
 class Analysis():
 
-    def __init__(self):
-        random.seed()
-        self.cols = random.randint(2, maxmatrixsize)
-        random.seed()
-        self.rows = random.randint(2, maxmatrixsize)
-        random.seed()
+    def __init__(self, k):
+        set_random_seed(k)
+        random.seed(k)
         self.ring = random.choice([ZZ, QQ])
+        self.cols = random.randint(2, maxmatrixsize)
+        self.rows = random.randint(2, maxmatrixsize)
         if self.ring == QQ:
-            random.seed()
             self.A = random_matrix(QQ, self.rows, self.cols, num_bound=num_bound, den_bound=den_bound)
-            random.seed()
             self.B = random_matrix(QQ, self.rows, self.cols, num_bound=num_bound, den_bound=den_bound)
         if self.ring == ZZ:
-            random.seed()
             self.A = random_matrix(ZZ, self.rows, self.cols, x=x, y=y)
-            random.seed()
             self.B = random_matrix(ZZ, self.rows, self.cols, x=x, y=y)
 
         self.game = NormalFormGame([self.A, self.B])
@@ -75,7 +70,7 @@ class Analysis():
 
 @parallel
 def instance(k):
-    Game = Analysis()
+    Game = Analysis(k)
     return Game.return_data()
 
 r = instance([k for  k in range(N)])
