@@ -33,5 +33,8 @@ dimensions = (Game.cols, Game.rows)
 matrix1 = list(Game.A)
 matrix2 = list(Game.B)
 
-data = [date, time, dimensions, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash]
-print data
+DATA = [date, time, dimensions, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash]
+
+logFile = open("log.csv",'wb')
+wr = csv.writer(logFile)
+wr.writerow(DATA)
