@@ -5,7 +5,7 @@ from timeit import Timer
 import time
 import socket
 
-N = 1000
+N = 10000
 maxmatrixsize = 10
 num_bound = 100
 den_bound = 10
