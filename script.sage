@@ -3,43 +3,58 @@ from sage.rings.all import ZZ, QQ
 import csv
 from timeit import Timer
 import time
-from sys import argv
+import socket
 
-args = argv[1:]
+N = 1000
+maxmatrixsize = 5
+num_bound = 100
+den_bound = 10
+x = -100
+y = 100
+timerepetitions = 5
+
+host = socket.gethostname()
 
 class Analysis():
 
     def __init__(self):
-        self.cols = random.randint(2, 5)
-        self.rows = random.randint(2, 5)
+        random.seed()
+        self.cols = random.randint(2, maxmatrixsize)
+        random.seed()
+        self.rows = random.randint(2, maxmatrixsize)
+        random.seed()
         self.ring = random.choice([ZZ, QQ])
         if self.ring == QQ:
-            self.A = random_matrix(QQ, self.rows, self.cols, num_bound=100, den_bound=4)
-            self.B = random_matrix(QQ, self.rows, self.cols, num_bound=100, den_bound=4)
+            random.seed()
+            self.A = random_matrix(QQ, self.rows, self.cols, num_bound=num_bound, den_bound=den_bound)
+            random.seed()
+            self.B = random_matrix(QQ, self.rows, self.cols, num_bound=num_bound, den_bound=den_bound)
         if self.ring == ZZ:
-            self.A = random_matrix(ZZ, self.rows, self.cols, x=-25, y=25)
-            self.B = random_matrix(ZZ, self.rows, self.cols, x=-25, y=25)
+            random.seed()
+            self.A = random_matrix(ZZ, self.rows, self.cols, x=x, y=y)
+            random.seed()
+            self.B = random_matrix(ZZ, self.rows, self.cols, x=x, y=y)
 
         self.game = NormalFormGame([self.A, self.B])
 
-    @fork
+    #@fork
     def lrs_timing(self):
         lrs_timer = Timer(lambda: self.game.obtain_Nash(algorithm='lrs'))
-        lrs_time = lrs_timer.timeit(number=5)
+        lrs_time = lrs_timer.timeit(number=timerepetitions)
         lrs_nash = self.game.obtain_Nash(algorithm='lrs')
         return lrs_time, lrs_nash
 
-    @fork
+    #@fork
     def LCP_timing(self):
         LCP_timer = Timer(lambda: self.game.obtain_Nash(algorithm='LCP'))
-        LCP_time = LCP_timer.timeit(number=5)
+        LCP_time = LCP_timer.timeit(number=timerepetitions)
         LCP_nash = self.game.obtain_Nash(algorithm='LCP')
         return LCP_time, LCP_nash
 
-    @fork
+    #@fork
     def enum_timing(self):
         enum_timer = Timer(lambda: self.game.obtain_Nash(algorithm='enumeration'))
-        enum_time = enum_timer.timeit(number=5)
+        enum_time = enum_timer.timeit(number=timerepetitions)
         enum_nash = self.game.obtain_Nash(algorithm='enumeration')
         return enum_time, enum_nash
 
@@ -55,14 +70,18 @@ class Analysis():
         ring  = self.ring
         matrix1 = list(self.A)
         matrix2 = list(self.B)
-        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash]
+        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, host]
 
 
-#while True:
-#    Game = Analysis()
-#
-#    logFile = open("log.csv", 'a')
-#    wr = csv.writer(logFile)
-#    wr.writerow(Game.return_data())
-#    logFile.close()
-print args
+@parallel
+def instance(k):
+    Game = Analysis()
+    return Game.return_data()
+
+r = instance([k for  k in range(N)])
+for result in r:
+    result = list(result[1])
+    logFile = open("log.csv", 'a')
+    wr = csv.writer(logFile)
+    wr.writerow(result)
+    logFile.close()
