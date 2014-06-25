@@ -50,11 +50,24 @@ def create_graph(data):
     lrs_list = [(ga.size, ga.lrs_time) for ga in data]
     LCP_list = [(ga.size, ga.LCP_time) for ga in data]
     enum_list = [(ga.size, ga.enum_time) for ga in data]
-    lrs_plot = list_plot(lrs_list, color='red')
-    LCP_plot = list_plot(LCP_list, color='blue')
-    enum_plot = list_plot(enum_list, color='green')
-    total_plot = lrs_plot + LCP_plot + enum_plot
-    total_plot.save('total_plot.eps')
+    lrs_plot = list_plot(lrs_list, color='red', legend_label='lrs', legend_color='red')
+    LCP_plot = list_plot(LCP_list, color='blue', legend_label='LCP', legend_color='blue')
+    enum_plot = list_plot(enum_list, color='green', legend_label='enum', legend_color='green')
+    return lrs_plot, LCP_plot, enum_plot
 
-create_graph([i for i in GAlist if i.ring == 'Integer Ring'])
+
+def integer_plot():
+    int_data = []
+    for i in GAlist:
+        if i.ring == 'Integer Ring':
+            int_data.append(i)
+    lrs_plot, LCP_plot, enum_plot = create_graph(int_data)
+    total_plot = lrs_plot + LCP_plot + enum_plot
+    minusenum = lrs_plot + LCP_plot
+    total_plot.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.save('plots/int_lrs_and_LCP.png')
+    total_plot.save('plots/int_total_plot.png')
+
+combined.axes_labels(['testing x axis', 'testing y axis'])
 print "Number of Games: %s" % len(GAlist)
