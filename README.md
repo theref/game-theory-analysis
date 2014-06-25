@@ -18,3 +18,7 @@ Our aim is for it to generate a random Normal Form Game. Then solve that game us
 Example output:
 '25/06/2014', '08:47:29', (5, 2), [(-2, 1, -1, -2, 0), (-1, 0, 2, -1, 0)], [(2, 0, 0, -1, -1), (0, -2, 2, 1/2, 0)], 1.0004150867462158, 1.5312190055847168, 0.39747095108032227, [[(0, 1), (0, 0, 1, 0, 0)]], [[(0.0, 1.0), (0.0, 0.0, 1.0, 0.0, 0.0)]], [[(0, 1), (0, 0, 1, 0, 0)]]
 
+
+### Plan For Analysis
+
+Use Sage to create 2 simple graphs. One for Rational Ring and one for Integer Ring. Along the x-axis will be the number of elementse in the matrices (rows x cols). Y-axis will show the time taken. Each method will have it's own colour. Lrs-red, LCP-blue, enumeration-green, for example.
