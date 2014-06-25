@@ -64,7 +64,7 @@ class Analysis():
         date = time.strftime("%d/%m/%Y")
         tim = time.strftime("%H:%M:%S")
         dimensions = (self.cols, self.rows)
-        ring  = self.ring
+        ring = self.ring
         matrix1 = list(self.A)
         matrix2 = list(self.B)
         return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, host]
