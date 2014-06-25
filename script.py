@@ -70,6 +70,7 @@ class Analysis():
 
 Game = Analysis()
 
-logFile = open("log.csv", 'wb')
+logFile = open("log.csv", 'a')
 wr = csv.writer(logFile)
 wr.writerow(Game.return_data())
+logFile.close()

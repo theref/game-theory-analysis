@@ -3,7 +3,6 @@ from sage.rings.all import ZZ, QQ
 import csv
 from timeit import Timer
 import time
-from multiprocessing import Pool
 
 
 class Analysis():
@@ -67,6 +66,7 @@ class Analysis():
 
 Game = Analysis()
 
-logFile = open("log.csv", 'wb')
+logFile = open("log.csv", 'a')
 wr = csv.writer(logFile)
 wr.writerow(Game.return_data())
+logFile.close()
