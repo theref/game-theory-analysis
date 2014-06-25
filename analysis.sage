@@ -1,7 +1,5 @@
 import csv
 
-
-# [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, host]
 # row[0] = Date
 # row[1] = Time
 # row[2] = Dimensions of matrices
@@ -27,20 +25,6 @@ def build_game_analysis(data):
     enum_time = eval(data[8])
     GA = GameAnalysis(size, lrs_time, LCP_time, enum_time, ring)
     GAlist.append(GA)
-
-
-class GameAnalysis():
-    def __init__(self, size, lrs_time, LCP_time, enum_time, ring):
-        self.size = size
-        self.lrs_time = lrs_time
-        self.LCP_time = LCP_time
-        self.enum_time = enum_time
-        self.ring = ring
-
-with open('log.csv', 'rb') as logFile:
-    logreader = csv.reader(logFile)
-    for row in logreader:
-        build_game_analysis(row)
 
 
 def create_graph(data):
@@ -98,6 +82,20 @@ def all_plot():
     minusenum.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
     minusenum.save('plots/all_lrs_and_LCP.png')
     total_plot.save('plots/all_total_plot.png')
+
+
+class GameAnalysis():
+    def __init__(self, size, lrs_time, LCP_time, enum_time, ring):
+        self.size = size
+        self.lrs_time = lrs_time
+        self.LCP_time = LCP_time
+        self.enum_time = enum_time
+        self.ring = ring
+
+with open('log.csv', 'rb') as logFile:
+    logreader = csv.reader(logFile)
+    for row in logreader:
+        build_game_analysis(row)
 
 all_plot()
 rational_plot()
