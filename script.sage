@@ -43,14 +43,6 @@ class Analysis():
 
     def return_data(self):
 
-        # pool = Pool()
-        # lrs_out = pool.apply_async(self.lrs_timing)
-        # LCP_out = pool.apply_async(self.LCP_timeing)
-        # enum_out = pool.apply_async(self.enum_timing)
-        # lrs_time, lrs_nash = lrs_out.get()
-        # LCP_time, LCP_nash = LCP_out.get()
-        # enum_time, enum_nash = enum_out.get()
-
         lrs_time, lrs_nash = self.lrs_timing()
         LCP_time, LCP_nash = self.LCP_timing()
         enum_time, enum_nash = self.enum_timing()
@@ -61,7 +53,11 @@ class Analysis():
         ring  = self.ring
         matrix1 = list(self.A)
         matrix2 = list(self.B)
-        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash]
+        if len(lrs_nash) == len(LCP_nash) == len(enum_nash):
+            no_sols = True
+        else:
+            no_sols = False
+        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, no_sols]
 
 
 Game = Analysis()
