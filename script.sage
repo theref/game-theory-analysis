@@ -6,7 +6,7 @@ import time
 import socket
 
 N = 10000
-maxmatrixsize = 10
+maxmatrixsize = 5
 num_bound = 100
 den_bound = 10
 x = -100
@@ -14,9 +14,11 @@ y = 100
 timerepetitions = 5
 
 names = {'m015.maths.cf.ac.uk': 'Juliet',
-         'james-desktop': 'Msc Lab'}
+         'james-desktop': 'Msc Lab',
+         'Jamess-MacBook-Air.local': 'James Air'}
 
 host = names[socket.gethostname()]
+
 
 class Analysis():
 
@@ -35,25 +37,35 @@ class Analysis():
 
         self.game = NormalFormGame([self.A, self.B])
 
-    #@fork
+    def convert_to_float(self, old):
+        new = []
+        for solution in old:
+            new_solution = []
+            for vector in solution:
+                new_vector = tuple([float(i) for i in vector])
+                new_solution.append(new_vector)
+            new.append(new_solution)
+        return new
+
     def lrs_timing(self):
         lrs_timer = Timer(lambda: self.game.obtain_Nash(algorithm='lrs'))
         lrs_time = lrs_timer.timeit(number=timerepetitions)
-        lrs_nash = self.game.obtain_Nash(algorithm='lrs')
+        lrs_bad = self.game.obtain_Nash(algorithm='lrs')
+        lrs_nash = self.convert_to_float(lrs_bad)
         return lrs_time, lrs_nash
 
-    #@fork
     def LCP_timing(self):
         LCP_timer = Timer(lambda: self.game.obtain_Nash(algorithm='LCP'))
         LCP_time = LCP_timer.timeit(number=timerepetitions)
-        LCP_nash = self.game.obtain_Nash(algorithm='LCP')
+        LCP_bad = self.game.obtain_Nash(algorithm='LCP')
+        LCP_nash = self.convert_to_float(LCP_bad)
         return LCP_time, LCP_nash
 
-    #@fork
     def enum_timing(self):
         enum_timer = Timer(lambda: self.game.obtain_Nash(algorithm='enumeration'))
         enum_time = enum_timer.timeit(number=timerepetitions)
-        enum_nash = self.game.obtain_Nash(algorithm='enumeration')
+        enum_bad = self.game.obtain_Nash(algorithm='enumeration')
+        enum_nash = self.convert_to_float(enum_bad)
         return enum_time, enum_nash
 
     def return_data(self):
