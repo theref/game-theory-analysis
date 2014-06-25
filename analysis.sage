@@ -1,7 +1,7 @@
 import csv
+import matplotlib.pyplot as plt
+from ast import literal_eval
 
-
-# [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, host]
 # row[0] = Date
 # row[1] = Time
 # row[2] = Dimensions of matrices
@@ -21,26 +21,15 @@ GAlist = []
 
 def build_game_analysis(data):
     ring = row[3]
-    size = prod(eval(data[2]))
-    lrs_time = eval(data[6])
-    LCP_time = eval(data[7])
-    enum_time = eval(data[8])
-    GA = GameAnalysis(size, lrs_time, LCP_time, enum_time, ring)
+    size = prod(literal_eval(data[2]))
+    lrs_time = literal_eval(data[6])
+    LCP_time = literal_eval(data[7])
+    enum_time = literal_eval(data[8])
+    lrs_output = literal_eval(data[9])
+    LCP_output = literal_eval(data[10])
+    enum_output = literal_eval(data[11])
+    GA = GameAnalysis(size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output)
     GAlist.append(GA)
-
-
-class GameAnalysis():
-    def __init__(self, size, lrs_time, LCP_time, enum_time, ring):
-        self.size = size
-        self.lrs_time = lrs_time
-        self.LCP_time = LCP_time
-        self.enum_time = enum_time
-        self.ring = ring
-
-with open('log.csv', 'rb') as logFile:
-    logreader = csv.reader(logFile)
-    for row in logreader:
-        build_game_analysis(row)
 
 
 def create_graph(data):
@@ -99,7 +88,46 @@ def all_plot():
     minusenum.save('plots/all_lrs_and_LCP.png')
     total_plot.save('plots/all_total_plot.png')
 
+
+def size_histogram():
+    sizes = [i.size for i in GAlist]
+    number_of_sizes = max(sizes) - 4
+    plt.hist(sizes, bins=number_of_sizes)
+    plt.xlabel('Size of matrices')
+    plt.ylabel('Frequency')
+    plt.title(r'Histogram of Size of Matrices')
+    plt.savefig('plots/Histogram.png')
+    plt.close()
+
+
+def vectors_the_same(game):
+    if len(game.lrs_output) == len(game.LCP_output) == len(game.enum_output):
+        return True
+    else:
+        return False
+
+class GameAnalysis():
+    def __init__(self, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output):
+        self.size = size
+        self.lrs_time = lrs_time
+        self.LCP_time = LCP_time
+        self.enum_time = enum_time
+        self.ring = ring
+        self.lrs_output = lrs_output
+        self.LCP_output = LCP_output
+        self.enum_output = enum_output
+
+with open('log.csv', 'rb') as logFile:
+    logreader = csv.reader(logFile)
+    for row in logreader:
+        build_game_analysis(row)
+
 all_plot()
 rational_plot()
 integer_plot()
+size_histogram()
 print "Number of Games: %s" % len(GAlist)
+
+for i in GAlist:
+    if not vectors_the_same(i):
+        print False
