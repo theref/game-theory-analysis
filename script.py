@@ -15,7 +15,9 @@ x = -Integer(100)
 y = Integer(100)
 timerepetitions = Integer(5)
 
-host = socket.gethostname()
+names = {'m015.maths.cf.ac.uk': 'Juliet'}
+
+host = names[socket.gethostname()]
 
 class Analysis():
 
