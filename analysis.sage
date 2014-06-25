@@ -20,19 +20,38 @@ GAlist = []
 
 
 def build_game_analysis(data):
+    ring = row[3]
     size = prod(eval(data[2]))
-
-    GA = GameAnalysis(size)
+    lrs_time = eval(data[6])
+    LCP_time = eval(data[7])
+    enum_time = eval(data[8])
+    GA = GameAnalysis(size, lrs_time, LCP_time, enum_time, ring)
     GAlist.append(GA)
 
 
 class GameAnalysis():
-    def __init__(self, size):
+    def __init__(self, size, lrs_time, LCP_time, enum_time, ring):
         self.size = size
+        self.lrs_time = lrs_time
+        self.LCP_time = LCP_time
+        self.enum_time = enum_time
+        self.ring = ring
 
 with open('log.csv', 'rb') as logFile:
     logreader = csv.reader(logFile)
     for row in logreader:
         build_game_analysis(row)
 
+
+def create_graph(data):
+    lrs_list = [(ga.size, ga.lrs_time) for ga in data]
+    LCP_list = [(ga.size, ga.LCP_time) for ga in data]
+    enum_list = [(ga.size, ga.enum_time) for ga in data]
+    lrs_plot = list_plot(lrs_list, color='red')
+    LCP_plot = list_plot(LCP_list, color='blue')
+    enum_plot = list_plot(enum_list, color='green')
+    total_plot = lrs_plot + LCP_plot + enum_plot
+    total_plot.save('total_plot.eps')
+
+create_graph([i for i in GAlist if i.ring == 'Integer Ring'])
 print "Number of Games: %s" % len(GAlist)
