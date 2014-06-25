@@ -3,7 +3,9 @@ from sage.rings.all import ZZ, QQ
 import csv
 from timeit import Timer
 import time
+from sys import argv
 
+args = argv[1:]
 
 class Analysis():
 
@@ -53,16 +55,14 @@ class Analysis():
         ring  = self.ring
         matrix1 = list(self.A)
         matrix2 = list(self.B)
-        if len(lrs_nash) == len(LCP_nash) == len(enum_nash):
-            no_sols = True
-        else:
-            no_sols = False
-        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, no_sols]
+        return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash]
 
 
-Game = Analysis()
-
-logFile = open("log.csv", 'a')
-wr = csv.writer(logFile)
-wr.writerow(Game.return_data())
-logFile.close()
+#while True:
+#    Game = Analysis()
+#
+#    logFile = open("log.csv", 'a')
+#    wr = csv.writer(logFile)
+#    wr.writerow(Game.return_data())
+#    logFile.close()
+print args
