@@ -59,12 +59,47 @@ def integer_plot():
         if i.ring == 'Integer Ring':
             int_data.append(i)
     lrs_plot, LCP_plot, enum_plot = create_graph(int_data)
-    total_plot = lrs_plot + LCP_plot + enum_plot
-    minusenum = lrs_plot + LCP_plot
+    total_title = text('Run time (seconds) versus problem\n size (m x n) for Integer games', (15, 15))
+    minusenum_title = text('Run time (seconds) versus problem\n size (m x n) for Integer games', (15, 0.4))
+    minusenum = lrs_plot + LCP_plot + minusenum_title
+    total_plot = lrs_plot + LCP_plot + enum_plot + total_title
     total_plot.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
     minusenum.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
-    minusenum.save('plots/int_lrs_and_LCP.png')
-    total_plot.save('plots/int_total_plot.png')
+    minusenum.save('plots/integer_lrs_and_LCP.png')
+    total_plot.save('plots/integer_total_plot.png')
 
-combined.axes_labels(['testing x axis', 'testing y axis'])
+
+def rational_plot():
+    rational_data = []
+    for i in GAlist:
+        if i.ring == 'Rational Field':
+            rational_data.append(i)
+    lrs_plot, LCP_plot, enum_plot = create_graph(rational_data)
+    total_title = text('Run time (seconds) versus problem\n size (m x n) for Rational games', (15, 15))
+    minusenum_title = text('Run time (seconds) versus problem\n size (m x n) for Rational games', (15, 0.4))
+    minusenum = lrs_plot + LCP_plot + minusenum_title
+    total_plot = lrs_plot + LCP_plot + enum_plot + total_title
+    total_plot.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.save('plots/rational_lrs_and_LCP.png')
+    total_plot.save('plots/rational_total_plot.png')
+
+
+def all_plot():
+    all_data = []
+    for i in GAlist:
+        all_data.append(i)
+    lrs_plot, LCP_plot, enum_plot = create_graph(all_data)
+    total_title = text('Run time (seconds) versus problem\n size (m x n) for All games', (15, 15))
+    minusenum_title = text('Run time (seconds) versus problem\n size (m x n) for All games', (15, 0.4))
+    minusenum = lrs_plot + LCP_plot + minusenum_title
+    total_plot = lrs_plot + LCP_plot + enum_plot + total_title
+    total_plot.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.axes_labels(['Size of Matrix(m x n)', 'Time (s)'])
+    minusenum.save('plots/all_lrs_and_LCP.png')
+    total_plot.save('plots/all_total_plot.png')
+
+all_plot()
+rational_plot()
+integer_plot()
 print "Number of Games: %s" % len(GAlist)
