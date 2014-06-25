@@ -1,4 +1,5 @@
 import csv
+import matplotlib.pyplot as plt
 
 # row[0] = Date
 # row[1] = Time
@@ -84,6 +85,17 @@ def all_plot():
     total_plot.save('plots/all_total_plot.png')
 
 
+def size_histogram():
+    sizes = [i.size for i in GAlist]
+    number_of_sizes = max(sizes) - 4
+    plt.hist(sizes, bins=number_of_sizes)
+    plt.xlabel('Size of matrices')
+    plt.ylabel('Frequency')
+    plt.title(r'Histogram of Size of Matrices')
+    plt.savefig('plots/Histogram.png')
+    plt.close()
+
+
 class GameAnalysis():
     def __init__(self, size, lrs_time, LCP_time, enum_time, ring):
         self.size = size
@@ -100,4 +112,5 @@ with open('log.csv', 'rb') as logFile:
 all_plot()
 rational_plot()
 integer_plot()
+size_histogram()
 print "Number of Games: %s" % len(GAlist)
