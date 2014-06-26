@@ -6,7 +6,7 @@ import time
 import socket
 
 N = 10000
-maxmatrixsize = 5
+maxmatrixsize = 10
 num_bound = 100
 den_bound = 10
 x = -100
