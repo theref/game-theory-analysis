@@ -17,7 +17,8 @@ timerepetitions = Integer(5)
 
 names = {'m015.maths.cf.ac.uk': 'Juliet',
          'james-desktop': 'Msc Lab',
-         'Jamess-MacBook-Air.local': 'James Air'}
+         'Jamess-MacBook-Air.local': 'James Air',
+         'Laure': 'Laure'}
 
 host = names[socket.gethostname()]
 
