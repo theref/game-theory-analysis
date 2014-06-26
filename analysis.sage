@@ -106,6 +106,7 @@ def vectors_the_same(game):
     else:
         return False
 
+
 class GameAnalysis():
     def __init__(self, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output):
         self.size = size
