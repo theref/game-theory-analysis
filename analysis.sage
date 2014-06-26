@@ -20,6 +20,8 @@ GAlist = []
 
 
 def build_game_analysis(data):
+    date = row[0]
+    time = row[1]
     ring = row[3]
     size = prod(literal_eval(data[2]))
     lrs_time = literal_eval(data[6])
@@ -28,7 +30,8 @@ def build_game_analysis(data):
     lrs_output = literal_eval(data[9])
     LCP_output = literal_eval(data[10])
     enum_output = literal_eval(data[11])
-    GA = GameAnalysis(size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output)
+    host = row[12]
+    GA = GameAnalysis(date, time, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output, host)
     GAlist.append(GA)
 
 
@@ -106,8 +109,11 @@ def vectors_the_same(game):
     else:
         return False
 
+
 class GameAnalysis():
-    def __init__(self, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output):
+    def __init__(self, date, time, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output, host):
+        self.date = date
+        self.time = time
         self.size = size
         self.lrs_time = lrs_time
         self.LCP_time = LCP_time
@@ -116,6 +122,7 @@ class GameAnalysis():
         self.lrs_output = lrs_output
         self.LCP_output = LCP_output
         self.enum_output = enum_output
+        self.host = host
 
 with open('log.csv', 'rb') as logFile:
     logreader = csv.reader(logFile)
@@ -128,6 +135,12 @@ integer_plot()
 size_histogram()
 print "Number of Games: %s" % len(GAlist)
 
-for i in GAlist:
-    if not vectors_the_same(i):
-        print False
+for i, v in enumerate(GAlist, start=1):
+    if not vectors_the_same(v):
+        date = v.date
+        time = v.time
+        host = v.host
+        lrs = len(v.lrs_output)
+        LCP = len(v.LCP_output)
+        enum = len(v.enum_output)
+        print "%s, %s, %s, Line %s, Lrs: %s, LCP: %s, Enum: %s" % (host, date, time, i, lrs, LCP, enum)
