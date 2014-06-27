@@ -20,9 +20,9 @@ GAlist = []
 
 
 def build_game_analysis(data):
-    date = row[0]
-    time = row[1]
-    ring = row[3]
+    date = data[0]
+    time = data[1]
+    ring = data[3]
     size = prod(literal_eval(data[2]))
     lrs_time = literal_eval(data[6])
     LCP_time = literal_eval(data[7])
@@ -30,7 +30,7 @@ def build_game_analysis(data):
     lrs_output = literal_eval(data[9])
     LCP_output = literal_eval(data[10])
     enum_output = literal_eval(data[11])
-    host = row[12]
+    host = data[12]
     GA = GameAnalysis(date, time, size, lrs_time, LCP_time, enum_time, ring, lrs_output, LCP_output, enum_output, host)
     GAlist.append(GA)
 
