@@ -8,7 +8,7 @@ import time
 import socket
 
 N = Integer(10000)
-maxmatrixsize = Integer(10)
+maxmatrixsize = Integer(15)
 num_bound = Integer(100)
 den_bound = Integer(10)
 x = -Integer(100)
