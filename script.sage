@@ -87,8 +87,8 @@ class Analysis():
 
 @parallel
 def instance(k):
-    Game = Analysis(k)
-    return Game.return_data()
+    with Analysis(k) as Game:
+        return Game.return_data()
 
 r = instance([k for  k in range(N)])
 for result in r:
