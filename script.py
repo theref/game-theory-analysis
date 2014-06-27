@@ -41,6 +41,12 @@ class Analysis():
 
         self.game = NormalFormGame([self.A, self.B])
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *err):
+        return False
+
     def convert_to_float(self, old):
         new = []
         for solution in old:
@@ -89,8 +95,8 @@ class Analysis():
 
 @parallel
 def instance(k):
-    Game = Analysis(k)
-    return Game.return_data()
+    with Analysis(k) as Game:
+        return Game.return_data()
 
 r = instance([k for  k in range(N)])
 for result in r:

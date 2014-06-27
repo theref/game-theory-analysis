@@ -39,6 +39,12 @@ class Analysis():
 
         self.game = NormalFormGame([self.A, self.B])
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *err):
+        return False
+
     def convert_to_float(self, old):
         new = []
         for solution in old:
