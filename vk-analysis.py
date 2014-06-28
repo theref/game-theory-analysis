@@ -35,7 +35,13 @@ if __name__ == '__main__':
     if len(argv) > 1:
         logfile = argv[1]
 
-    data = [Instance(*row) for row in reader(open(logfile, 'r'))]
+    log_of_data = {}
+    data = []
+    for row in reader(open(logfile, 'r')):
+        if (row[4], row[5]) not in log_of_data:
+            data.append(Instance(*row))
+            log_of_data[(row[4], row[5])] = 1
+
     sizes = range(min([row.size for row in data]), max([row.size for row in data]) + 1)
     hosts = list(set([instance.host for instance in data]))
 

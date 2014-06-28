@@ -27,8 +27,8 @@ host = names[socket.gethostname()]
 class Analysis():
 
     def __init__(self, k):
-        set_random_seed(k)
-        random.seed(k)
+        set_random_seed()
+        random.seed()
         self.ring = random.choice([ZZ, QQ])
         self.cols = random.randint(Integer(2), maxmatrixsize)
         self.rows = random.randint(Integer(2), maxmatrixsize)
