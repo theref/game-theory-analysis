@@ -39,15 +39,43 @@ if __name__ == '__main__':
     sizes = range(min([row.size for row in data]), max([row.size for row in data]) + 1)
     hosts = list(set([instance.host for instance in data]))
 
-    # Plot box plot for time against approach (for all approaches)
+
+    # plot box plot for time against size for lrs
+
+    plt.figure()
+    plt.boxplot([[instance.lrs_time for instance in data if instance.size == k] for k in sizes])
+    plt.xticks(range(min(sizes), max(sizes) + 1, 5))
+    plt.ylabel('time (s)')
+    plt.title("time against size (lrs)")
+    plt.savefig('./plots/vk/time_against_size_lrs.png')
+
+    # plot box plot for time against size for LCP
+
+    plt.figure()
+    plt.boxplot([[instance.LCP_time for instance in data if instance.size == k] for k in sizes])
+    plt.xticks(range(min(sizes), max(sizes) + 1, 5))
+    plt.ylabel('time (s)')
+    plt.title("time against size (LCP)")
+    plt.savefig('./plots/vk/time_against_size_LCP.png')
+
+    # plot box plot for time against size for enumeration
+
+    plt.figure()
+    plt.boxplot([[instance.enum_time for instance in data if instance.size == k] for k in sizes])
+    plt.xticks(range(min(sizes), max(sizes) + 1, 5))
+    plt.ylabel('time (s)')
+    plt.title("time against size (enum)")
+    plt.savefig('./plots/vk/time_against_size_enum.png')
+
+    # plot box plot for time against approach (for all approaches)
 
     plt.figure()
     plt.boxplot([[instance.lrs_time for instance in data],
                  [instance.LCP_time for instance in data],
                  [instance.enum_time for instance in data]])
-    plt.xticks([1,2,3], ['lrs', 'LCP', 'enumeration'])
-    plt.ylabel('Time (s)')
-    plt.title("Time against approach")
+    plt.xticks([1,2,3], ['lrs', 'lcp', 'enumeration'])
+    plt.ylabel('time (s)')
+    plt.title("time against approach")
     plt.savefig('./plots/vk/time_against_approach.png')
 
     # Plot box plot for time against approach (Ignoring enumeration)
@@ -151,6 +179,8 @@ if __name__ == '__main__':
     plt.ylabel('Probability')
     plt.title("Best time / size ^ 2")
     plt.savefig('./plots/vk/best_time_over_size_squared_per_instance_distribution_by_host.png')
+
+    # Printing number of games that fail
 
     print "%s of %s give discrepancies in the number of equilibria, these have been written to './plots/vk/fails.csv'" % (len([instance for instance in data if not instance.agree]), len(data))
     fails = open('./plots/vk/fails.csv', 'w')
