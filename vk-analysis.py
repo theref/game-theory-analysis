@@ -3,7 +3,7 @@
 Script to analyse the log.csv file.
 """
 from __future__ import division
-from csv import reader
+from csv import reader, writer
 import matplotlib.pyplot as plt
 
 class Instance():
@@ -151,3 +151,9 @@ if __name__ == '__main__':
     plt.ylabel('Probability')
     plt.title("Best time / size ^ 2")
     plt.savefig('./plots/vk/best_time_over_size_squared_per_instance_distribution_by_host.png')
+
+    print "%s of %s give discrepancies in the number of equilibria, these have been written to './plots/vk/fails.csv'" % (len([instance for instance in data if not instance.agree]), len(data))
+    fails = open('./plots/vk/fails.csv', 'w')
+    csvwrtr = writer(fails)
+    for instance in [instance for instance in data if not instance.agree]:
+        csvwrtr.writerow([instance.A, instance.B])
