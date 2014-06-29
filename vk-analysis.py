@@ -39,8 +39,11 @@ if __name__ == '__main__':
     data = []
     for row in reader(open(logfile, 'r')):
         if (row[4], row[5]) not in log_of_data:
-            data.append(Instance(*row))
-            log_of_data[(row[4], row[5])] = 1
+            try:
+                data.append(Instance(*row))
+                log_of_data[(row[4], row[5])] = 1
+            except:
+                pass
 
     sizes = range(min([row.size for row in data]), max([row.size for row in data]) + 1)
     hosts = list(set([instance.host for instance in data]))
