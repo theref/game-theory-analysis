@@ -8,7 +8,7 @@ import time
 import socket
 
 N = Integer(10000)
-maxmatrixsize = Integer(15)
+maxmatrixsize = Integer(10)
 num_bound = Integer(100)
 den_bound = Integer(10)
 x = -Integer(100)
@@ -27,8 +27,8 @@ host = names[socket.gethostname()]
 class Analysis():
 
     def __init__(self, k):
-        set_random_seed(k)
-        random.seed(k)
+        set_random_seed()
+        random.seed()
         self.ring = random.choice([ZZ, QQ])
         self.cols = random.randint(Integer(2), maxmatrixsize)
         self.rows = random.randint(Integer(2), maxmatrixsize)
@@ -40,6 +40,12 @@ class Analysis():
             self.B = random_matrix(ZZ, self.rows, self.cols, x=x, y=y)
 
         self.game = NormalFormGame([self.A, self.B])
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *err):
+        return False
 
     def convert_to_float(self, old):
         new = []
@@ -89,8 +95,8 @@ class Analysis():
 
 @parallel
 def instance(k):
-    Game = Analysis(k)
-    return Game.return_data()
+    with Analysis(k) as Game:
+        return Game.return_data()
 
 r = instance([k for  k in range(N)])
 for result in r:
