@@ -153,6 +153,15 @@ if __name__ == '__main__':
     plt.title("Best time / size ^ 2 against host")
     plt.savefig('./plots/vk/best_time_over_size_squared_against_host.png')
 
+    # Number of equilibria against size of game (for games that agree)
+
+    plt.figure()
+    plt.boxplot([[len(instance.LCP_output) for instance in data if instance.agree and instance.size == k] for k in sizes])
+    plt.xticks(range(min(sizes), max(sizes) + 1, 5))
+    plt.ylabel('Number of equilibria')
+    plt.title("Number of equilibria against size")
+    plt.savefig('./plots/vk/number_of_equilibria_against_size.png')
+
     # Distribution of size by host
 
     plt.figure()
