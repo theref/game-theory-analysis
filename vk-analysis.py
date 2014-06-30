@@ -168,7 +168,7 @@ if __name__ == '__main__':
     plt.figure()
     plt.hist([len(instance.LCP_output) for instance in data if instance.agree])
     plt.legend()
-    plt.ylabel('Probability')
+    plt.ylabel('Frequency')
     plt.title("Number of equilibria")
     plt.savefig('./plots/vk/number_of_equilibria_distribution.png')
 
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     plt.figure()
     plt.hist([[instance.size for instance in data if instance.host == h] for h in hosts], normed=True, label=["%s (N=%s)" % (h, len([instance for instance in data if instance.host == h])) for h in hosts])
     plt.legend()
-    plt.ylabel('Probability')
+    plt.ylabel('Frequency')
     plt.title("Size")
     plt.savefig('./plots/vk/size_distribution_by_host.png')
 
@@ -186,7 +186,7 @@ if __name__ == '__main__':
     plt.figure()
     plt.hist([[instance.best_time for instance in data if instance.host == h] for h in hosts], normed=True, label=["%s (N=%s)" % (h, len([instance for instance in data if instance.host == h])) for h in hosts])
     plt.legend()
-    plt.ylabel('Probability')
+    plt.ylabel('Frequency')
     plt.title("Best time")
     plt.savefig('./plots/vk/best_time_per_instance_distribution_by_host.png')
 
