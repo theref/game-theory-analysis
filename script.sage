@@ -91,7 +91,7 @@ class Analysis():
         return [date, tim, dimensions, ring, matrix1, matrix2, lrs_time, LCP_time, enum_time, lrs_nash, LCP_nash, enum_nash, host]
 
 
-@parallel
+@parallel(1)
 def instance(k):
     with Analysis(k) as Game:
         return Game.return_data()
