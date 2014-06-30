@@ -162,6 +162,15 @@ if __name__ == '__main__':
     plt.title("Number of equilibria against size")
     plt.savefig('./plots/vk/number_of_equilibria_against_size.png')
 
+    # Distribution of number of equilibria
+
+    plt.figure()
+    plt.hist([len(instance.LCP_output) for instance in data if instance.agree])
+    plt.legend()
+    plt.ylabel('Probability')
+    plt.title("Number of equilibria")
+    plt.savefig('./plots/vk/number_of_equilibria_distribution.png')
+
     # Distribution of size by host
 
     plt.figure()
