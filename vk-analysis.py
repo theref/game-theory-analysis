@@ -5,6 +5,7 @@ Script to analyse the log.csv file.
 from __future__ import division
 from csv import reader, writer
 import matplotlib.pyplot as plt
+from scipy import mean
 
 class Instance():
     """
@@ -206,6 +207,62 @@ if __name__ == '__main__':
     plt.ylabel('Probability')
     plt.title("Best time / size ^ 2")
     plt.savefig('./plots/vk/best_time_over_size_squared_per_instance_distribution_by_host.png')
+
+    # Get dimensions for heat maps
+
+    maxm = max([instance.dim[0] for instance in data])
+    minm = min([instance.dim[0] for instance in data])
+    maxn = max([instance.dim[1] for instance in data])
+    minn = min([instance.dim[1] for instance in data])
+
+    # Heat map of number by dimensions
+
+    number = []
+    for m in range(minm, maxm + 1):
+        row = []
+        for n in range(minn, maxn + 1):
+            row.append(len([instance for instance in data if instance.dim == (m, n)]))
+        number.append(row)
+    plt.figure()
+    plt.imshow(number, aspect='auto', cmap='summer')
+    plt.colorbar()
+    plt.ylabel('$m$')
+    plt.xlabel('$n$')
+    plt.title("Number of instances")
+    plt.savefig('./plots/vk/number_of_instances.png')
+
+    # Heat map of mean number of equilibria by dimensions
+
+    number = []
+    for m in range(minm, maxm + 1):
+        row = []
+        for n in range(minn, maxn + 1):
+            row.append(mean([len(instance.LCP_output) for instance in data if instance.dim == (m, n) and instance.agree]))
+        number.append(row)
+    plt.figure()
+    plt.imshow(number, aspect='auto', cmap='summer')
+    plt.colorbar()
+    plt.ylabel('$m$')
+    plt.xlabel('$n$')
+    plt.title("Mean number of equilibria")
+    plt.savefig('./plots/vk/number_of_equilibria.png')
+
+
+    # Heat map of mean best time by dimensions
+
+    number = []
+    for m in range(minm, maxm + 1):
+        row = []
+        for n in range(minn, maxn + 1):
+            row.append(mean([instance.best_time for instance in data if instance.dim == (m, n) and instance.agree]))
+        number.append(row)
+    plt.figure()
+    plt.imshow(number, aspect='auto', cmap='summer')
+    plt.colorbar()
+    plt.ylabel('$m$')
+    plt.xlabel('$n$')
+    plt.title("Mean best time (s)")
+    plt.savefig('./plots/vk/mean_best_time.png')
 
     # Printing number of games that fail
 
