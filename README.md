@@ -1,30 +1,38 @@
 Game Theory Analysis
 ====================
 
-This repository is for testing and analyising the code written for Sage Mathematical Software which can be found at https://github.com/theref/sage-game-theory
+This repository is for testing and analysing the code written for Sage Mathematical Software which can be found at https://github.com/theref/sage-game-theory
 
-Assuming that sage is in your path, you can run the script by ``sage /path/to/script.sage``.
+The main script (once the correct version of `sage` is installed) to run is `script.sage`. This will create random games, solve them with 3 algorithms and write them to a `log.csv` file.
 
+Various things are collected, mainly including the run time for 3 algorithms (LCP, lrs and support enumeration) and the actual Nash Equilibria calculated for each algorithm.
 
-Our aim is for it to generate a random Normal Form Game. Then solve that game using 3 different methods; lrs, LCP and enumeration. From this we will record:
- - Date
- - Time
- - Size of Game
- - Ring
- - Payoff Matrix for Player1 and Player2
- - Ouput from lrs, LCP and enumeration
- - Time taken by lrs, LCP and enumeration
+The `analysis.py` script creates a variety of graphical outputs:
 
-These will then be written to a csv file.
-Example output:
+# The distribution of the size of games considered:
 
-25/06/2014,09:49:06,"(4, 4)",Integer Ring,"[(-5, -17, 4, 6), (-18, -21, -7, -20), (16, -2, -6, -11), (21, 24, 1, 9)]","[(2, 19, 18, -9), (-21, 5, -10, -11), (16, 12, -6, -11), (16, 19, -11, 0)]",0.9216248989105225,1.5128719806671143,1.7181739807128906,"[[(0, 0, 0, 1), (0, 1, 0, 0)]]","[[(0.0, 0.0, 0.0, 1.0), (0.0, 1.0, 0.0, 0.0)]]","[[(0, 0, 0, 1), (0, 1, 0, 0)]]"
+![](./plots/number_of_equilibria_distribution.png)
 
+# The number of equilibria per dimension of games:
 
-### Plan For Analysis
+![](./plots/number_of_equilibria_against_size.png)
 
-Use Sage to create 2 simple graphs. One for Rational Ring and one for Integer Ring. Along the x-axis will be the number of elementse in the matrices (``rows`` x ``cols``). Y-axis will show the time taken. Each method will have it's own colour. Lrs-red, LCP-blue, enumeration-green, for example.
+# The time against size per algorithm:
 
-Will produce a report of all games where the 3 methods did not produce the same number of Nash Equilibria.
+## LCP
 
-Will produce a report of all games where the 3 methods did not produce Nash Equilibria that were equal. This will need a tolerance set to deal with the fact that Gambit returns floats not rationals.
+![](./plots/time_against_size_LCP.png)
+
+## lrs
+
+![](./plots/time_against_size_lrs.png)
+
+## Support enumeration
+
+![](./plots/time_against_size_enum.png)
+
+There are a variety of others outputs in the `./plots` directory.
+
+# Degeneracy
+
+The points at which the algorithms do not agree correspond to degenerate games, these are written to the `./plots/fails.csv` file.
