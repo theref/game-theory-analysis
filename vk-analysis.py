@@ -270,12 +270,23 @@ if __name__ == '__main__':
 
     dates = sorted(list(set([instance.date for instance in data])))
     plt.figure()
-    plt.boxplot([[instance.enum_time / instance.size for instance in data if instance.date == d] for d in dates])
+    plt.boxplot([[instance.enum_time for instance in data if instance.date == d] for d in dates])
     plt.xticks(range(1, len(dates)+1), [d.strftime("%Y-%m-%d") for d in dates], rotation=70)
     plt.ylabel('time (s)')
     plt.title("Enumeration time against date")
     plt.tight_layout()
     plt.savefig('./plots/vk/enum_time_against_date.png')
+
+    # Plotting the time for enumeration against the date of the experiment and restricting size of games
+
+    dates = sorted(list(set([instance.date for instance in data])))
+    plt.figure()
+    plt.boxplot([[instance.enum_time for instance in data if instance.date == d and all([5<=k<=10 for k in instance.dim])] for d in dates[4:]])
+    plt.xticks(range(1, len(dates[4:])+1), [d.strftime("%Y-%m-%d") for d in dates[4:]], rotation=70)
+    plt.ylabel('time (s)')
+    plt.title("Enumeration time against date with $5\leq m,n\leq 10$")
+    plt.tight_layout()
+    plt.savefig('./plots/vk/enum_time_against_date_with_restricted_size.png')
 
     # Printing number of games that fail
 
