@@ -5,14 +5,16 @@ Script to analyse the log.csv file.
 from __future__ import division
 from csv import reader, writer
 import matplotlib.pyplot as plt
+import matplotlib.dates
 from scipy import mean
+import datetime
 
 class Instance():
     """
     A row of data
     """
     def __init__(self, date, time, dim, ring, A, B, lrs_time, LCP_time, enum_time, lrs_output, LCP_output, enum_output, host):
-        self.date = date
+        self.date = datetime.datetime.strptime(date, "%d/%m/%Y")
         self.time = time
         self.ring = ring
         self.dim = eval(dim)
@@ -263,6 +265,17 @@ if __name__ == '__main__':
     plt.xlabel('$n$')
     plt.title("Mean best time (s)")
     plt.savefig('./plots/vk/mean_best_time.png')
+
+    # Plotting the time for enumeration against the date of the experiment
+
+    dates = sorted(list(set([instance.date for instance in data])))
+    plt.figure()
+    plt.boxplot([[instance.enum_time / instance.size for instance in data if instance.date == d] for d in dates])
+    plt.xticks(range(1, len(dates)+1), [d.strftime("%Y-%m-%d") for d in dates], rotation=70)
+    plt.ylabel('time (s)')
+    plt.title("Enumeration time against date")
+    plt.tight_layout()
+    plt.savefig('./plots/vk/enum_time_against_date.png')
 
     # Printing number of games that fail
 
