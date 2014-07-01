@@ -59,7 +59,7 @@ if __name__ == '__main__':
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (lrs)")
-    plt.savefig('./plots/vk/time_against_size_lrs.png')
+    plt.savefig('./plots/time_against_size_lrs.png')
 
     # plot box plot for time against size for LCP
 
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (LCP)")
-    plt.savefig('./plots/vk/time_against_size_LCP.png')
+    plt.savefig('./plots/time_against_size_LCP.png')
 
     # plot box plot for time against size for enumeration
 
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (enum)")
-    plt.savefig('./plots/vk/time_against_size_enum.png')
+    plt.savefig('./plots/time_against_size_enum.png')
 
     # plot box plot for time against approach (for all approaches)
 
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     plt.xticks([1,2,3], ['lrs', 'lcp', 'enumeration'])
     plt.ylabel('time (s)')
     plt.title("time against approach")
-    plt.savefig('./plots/vk/time_against_approach.png')
+    plt.savefig('./plots/time_against_approach.png')
 
     # Plot box plot for time against approach (Ignoring enumeration)
 
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time (s)')
     plt.title("Time against approach")
-    plt.savefig('./plots/vk/time_against_approach_without_enumeration.png')
+    plt.savefig('./plots/time_against_approach_without_enumeration.png')
 
     # Time / size box plot against approach
 
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time / size (s/dim)')
     plt.title("Time / size against approach")
-    plt.savefig('./plots/vk/time_over_size_against_approach_without_enumeration.png')
+    plt.savefig('./plots/time_over_size_against_approach_without_enumeration.png')
 
     # Time / size ^ 2 box plot against approach
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time / size ^ 2 (s/dim ^ 2)')
     plt.title("Time / size ^ 2 against approach")
-    plt.savefig('./plots/vk/time_over_size_squared_against_approach_without_enumeration.png')
+    plt.savefig('./plots/time_over_size_squared_against_approach_without_enumeration.png')
 
     # Size box plot against host
 
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Size')
     plt.title("Size against host")
-    plt.savefig('./plots/vk/size_against_host.png')
+    plt.savefig('./plots/size_against_host.png')
 
     # Min time box plot against host
 
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time (s)')
     plt.title("Best time against host")
-    plt.savefig('./plots/vk/best_time_against_host.png')
+    plt.savefig('./plots/best_time_against_host.png')
 
     # Min time / size box plot against host
 
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time / size (s/dim)')
     plt.title("Best time / size against host")
-    plt.savefig('./plots/vk/best_time_over_size_against_host.png')
+    plt.savefig('./plots/best_time_over_size_against_host.png')
 
     # Min time / size ^ 2 box plot against host
 
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time / size ^ 2 (s/dim ^ 2)')
     plt.title("Best time / size ^ 2 against host")
-    plt.savefig('./plots/vk/best_time_over_size_squared_against_host.png')
+    plt.savefig('./plots/best_time_over_size_squared_against_host.png')
 
     # Number of equilibria against size of game (for games that agree)
 
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('Number of equilibria')
     plt.title("Number of equilibria against size")
-    plt.savefig('./plots/vk/number_of_equilibria_against_size.png')
+    plt.savefig('./plots/number_of_equilibria_against_size.png')
 
     # Distribution of number of equilibria
 
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.ylabel('Frequency')
     plt.title("Number of equilibria")
-    plt.savefig('./plots/vk/number_of_equilibria_distribution.png')
+    plt.savefig('./plots/number_of_equilibria_distribution.png')
 
     # Distribution of size by host
 
@@ -181,7 +181,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.ylabel('Frequency')
     plt.title("Size")
-    plt.savefig('./plots/vk/size_distribution_by_host.png')
+    plt.savefig('./plots/size_distribution_by_host.png')
 
     # Distribution of best_time by host
 
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.ylabel('Frequency')
     plt.title("Best time")
-    plt.savefig('./plots/vk/best_time_per_instance_distribution_by_host.png')
+    plt.savefig('./plots/best_time_per_instance_distribution_by_host.png')
 
     # Distribution of best_time / size by host
 
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.ylabel('Probability')
     plt.title("Best time / size")
-    plt.savefig('./plots/vk/best_time_over_size_per_instance_distribution_by_host.png')
+    plt.savefig('./plots/best_time_over_size_per_instance_distribution_by_host.png')
 
     # Distribution of best_time / size ^ 2 by host
 
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.ylabel('Probability')
     plt.title("Best time / size ^ 2")
-    plt.savefig('./plots/vk/best_time_over_size_squared_per_instance_distribution_by_host.png')
+    plt.savefig('./plots/best_time_over_size_squared_per_instance_distribution_by_host.png')
 
     # Get dimensions for heat maps
 
@@ -231,7 +231,7 @@ if __name__ == '__main__':
     plt.ylabel('$m$')
     plt.xlabel('$n$')
     plt.title("Number of instances")
-    plt.savefig('./plots/vk/number_of_instances.png')
+    plt.savefig('./plots/number_of_instances.png')
 
     # Heat map of mean number of equilibria by dimensions
 
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     plt.ylabel('$m$')
     plt.xlabel('$n$')
     plt.title("Mean number of equilibria")
-    plt.savefig('./plots/vk/number_of_equilibria.png')
+    plt.savefig('./plots/number_of_equilibria.png')
 
 
     # Heat map of mean best time by dimensions
@@ -264,7 +264,7 @@ if __name__ == '__main__':
     plt.ylabel('$m$')
     plt.xlabel('$n$')
     plt.title("Mean best time (s)")
-    plt.savefig('./plots/vk/mean_best_time.png')
+    plt.savefig('./plots/mean_best_time.png')
 
     # Plotting the time for enumeration against the date of the experiment
 
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     plt.ylabel('time (s)')
     plt.title("Enumeration time against date")
     plt.tight_layout()
-    plt.savefig('./plots/vk/enum_time_against_date.png')
+    plt.savefig('./plots/enum_time_against_date.png')
 
     # Plotting the time for enumeration against the date of the experiment and restricting size of games
 
@@ -286,12 +286,12 @@ if __name__ == '__main__':
     plt.ylabel('time (s)')
     plt.title("Enumeration time against date with $5\leq m,n\leq 10$")
     plt.tight_layout()
-    plt.savefig('./plots/vk/enum_time_against_date_with_restricted_size.png')
+    plt.savefig('./plots/enum_time_against_date_with_restricted_size.png')
 
     # Printing number of games that fail
 
-    print "%s of %s give discrepancies in the number of equilibria, these have been written to './plots/vk/fails.csv'" % (len([instance for instance in data if not instance.agree]), len(data))
-    fails = open('./plots/vk/fails.csv', 'w')
+    print "%s of %s give discrepancies in the number of equilibria, these have been written to './plots/fails.csv'" % (len([instance for instance in data if not instance.agree]), len(data))
+    fails = open('./plots/fails.csv', 'w')
     csvwrtr = writer(fails)
     for instance in [instance for instance in data if not instance.agree]:
         csvwrtr.writerow([instance.A, instance.B])
