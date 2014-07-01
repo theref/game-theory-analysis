@@ -98,7 +98,7 @@ def size_histogram():
     plt.hist(sizes, bins=number_of_sizes)
     plt.xlabel('Size of matrices')
     plt.ylabel('Frequency')
-    plt.title(r'Histogram of Size of Matrices')
+    plt.title('Histogram of Size of Matrices')
     plt.savefig('plots/Histogram.png')
     plt.close()
 
