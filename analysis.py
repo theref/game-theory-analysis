@@ -55,7 +55,7 @@ if __name__ == '__main__':
     # plot box plot for time against size for lrs
 
     plt.figure()
-    plt.boxplot([[instance.lrs_time for instance in data if instance.size == k] for k in sizes])
+    plt.boxplot([[instance.lrs_time for instance in data if instance.size == k] for k in sizes], sym='')
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (lrs)")
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # plot box plot for time against size for LCP
 
     plt.figure()
-    plt.boxplot([[instance.LCP_time for instance in data if instance.size == k] for k in sizes])
+    plt.boxplot([[instance.LCP_time for instance in data if instance.size == k] for k in sizes], sym='')
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (LCP)")
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     # plot box plot for time against size for enumeration
 
     plt.figure()
-    plt.boxplot([[instance.enum_time for instance in data if instance.size == k] for k in sizes])
+    plt.boxplot([[instance.enum_time for instance in data if instance.size == k] for k in sizes], sym='')
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('time (s)')
     plt.title("time against size (enum)")
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     plt.figure()
     plt.boxplot([[instance.lrs_time for instance in data],
                  [instance.LCP_time for instance in data],
-                 [instance.enum_time for instance in data]])
+                 [instance.enum_time for instance in data]], sym='')
     plt.xticks([1,2,3], ['lrs', 'lcp', 'enumeration'])
     plt.ylabel('time (s)')
     plt.title("time against approach")
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.boxplot([[instance.lrs_time for instance in data],
-                 [instance.LCP_time for instance in data]])
+                 [instance.LCP_time for instance in data]], sym='')
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time (s)')
     plt.title("Time against approach")
@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.boxplot([[instance.lrs_time / instance.size for instance in data],
-                 [instance.LCP_time / instance.size for instance in data]])
+                 [instance.LCP_time / instance.size for instance in data]], sym='')
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time / size (s/dim)')
     plt.title("Time / size against approach")
@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.boxplot([[instance.lrs_time / (instance.size ** 2) for instance in data],
-                 [instance.LCP_time / (instance.size ** 2) for instance in data]])
+                 [instance.LCP_time / (instance.size ** 2) for instance in data]], sym='')
     plt.xticks([1,2], ['lrs', 'LCP'])
     plt.ylabel('Time / size ^ 2 (s/dim ^ 2)')
     plt.title("Time / size ^ 2 against approach")
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     # Size box plot against host
 
     plt.figure()
-    plt.boxplot([[instance.size for instance in data if instance.host == h] for h in hosts])
+    plt.boxplot([[instance.size for instance in data if instance.host == h] for h in hosts], sym='')
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Size')
     plt.title("Size against host")
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     # Min time box plot against host
 
     plt.figure()
-    plt.boxplot([[instance.best_time for instance in data if instance.host == h] for h in hosts])
+    plt.boxplot([[instance.best_time for instance in data if instance.host == h] for h in hosts], sym='')
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time (s)')
     plt.title("Best time against host")
@@ -141,7 +141,7 @@ if __name__ == '__main__':
     # Min time / size box plot against host
 
     plt.figure()
-    plt.boxplot([[instance.best_time / instance.size for instance in data if instance.host == h] for h in hosts])
+    plt.boxplot([[instance.best_time / instance.size for instance in data if instance.host == h] for h in hosts], sym='')
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time / size (s/dim)')
     plt.title("Best time / size against host")
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     # Min time / size ^ 2 box plot against host
 
     plt.figure()
-    plt.boxplot([[instance.best_time / (instance.size ** 2) for instance in data if instance.host == h] for h in hosts])
+    plt.boxplot([[instance.best_time / (instance.size ** 2) for instance in data if instance.host == h] for h in hosts], sym='')
     plt.xticks(range(1, len(hosts) + 1), hosts)
     plt.ylabel('Time / size ^ 2 (s/dim ^ 2)')
     plt.title("Best time / size ^ 2 against host")
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     # Number of equilibria against size of game (for games that agree)
 
     plt.figure()
-    plt.boxplot([[len(instance.LCP_output) for instance in data if instance.agree and instance.size == k] for k in sizes])
+    plt.boxplot([[len(instance.LCP_output) for instance in data if instance.agree and instance.size == k] for k in sizes], sym='')
     plt.xticks(range(min(sizes), max(sizes) + 1, 5))
     plt.ylabel('Number of equilibria')
     plt.title("Number of equilibria against size")
@@ -270,7 +270,7 @@ if __name__ == '__main__':
 
     dates = sorted(list(set([instance.date for instance in data])))
     plt.figure()
-    plt.boxplot([[instance.enum_time for instance in data if instance.date == d] for d in dates])
+    plt.boxplot([[instance.enum_time for instance in data if instance.date == d] for d in dates], sym='')
     plt.xticks(range(1, len(dates)+1), [d.strftime("%Y-%m-%d") for d in dates], rotation=70)
     plt.ylabel('time (s)')
     plt.title("Enumeration time against date")
@@ -281,7 +281,7 @@ if __name__ == '__main__':
 
     dates = sorted(list(set([instance.date for instance in data])))
     plt.figure()
-    plt.boxplot([[instance.enum_time for instance in data if instance.date == d and all([5<=k<=10 for k in instance.dim])] for d in dates[4:]])
+    plt.boxplot([[instance.enum_time for instance in data if instance.date == d and all([5<=k<=10 for k in instance.dim])] for d in dates[4:]], sym='')
     plt.xticks(range(1, len(dates[4:])+1), [d.strftime("%Y-%m-%d") for d in dates[4:]], rotation=70)
     plt.ylabel('time (s)')
     plt.title("Enumeration time against date with $5\leq m,n\leq 10$")
