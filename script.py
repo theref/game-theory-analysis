@@ -50,10 +50,7 @@ class Analysis():
     def convert_to_float(self, old):
         new = []
         for solution in old:
-            new_solution = []
-            for vector in solution:
-                new_vector = tuple([float(i) for i in vector])
-                new_solution.append(new_vector)
+            new_solution = [tuple(float(i) for i in vector) for vector in solution]
             new.append(new_solution)
         return new
 
@@ -98,10 +95,9 @@ def instance(k):
     with Analysis(k) as Game:
         return Game.return_data()
 
-r = instance([k for  k in range(N)])
+r = instance(list(range(N)))
 for result in r:
     result = list(result[Integer(1)])
-    logFile = open("log.csv", 'a')
-    wr = csv.writer(logFile)
-    wr.writerow(result)
-    logFile.close()
+    with open("log.csv", 'a') as logFile:
+        wr = csv.writer(logFile)
+        wr.writerow(result)
